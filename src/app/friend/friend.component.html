@@ -1,0 +1,203 @@
+<div class="container">
+    <div class="border">
+        <button class="btn btn-md btn-outline-primary" (click)="open(content)">
+          <i class="fa fa-user"></i>Nuevo Amigo</button>
+    </div>
+    <table class="table table-bordered table-striped">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Departamento</th>
+        <th>Email</th>
+        <th>Pais</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let friend of friends">
+        <td><span>{{friend.id}}</span></td>
+        <td><span>{{friend.firstname}}</span></td>
+        <td><span>{{friend.lastname}}</span></td>
+        <td><span>{{friend.departament}}</span></td>
+        <td><span>{{friend.email}}</span></td>
+        <td><span>{{friend.country}}</span></td>
+        <td>
+            <button class="btn btn-sm btn-info" (click)="openDetails(contentDetails, friend)">
+                <i class="fa fa-search"></i>Detalle</button>
+              <button class="btn btn-sm btn-warning" (click)="openEdit(contentEdit, friend)">
+                <i class="fa fa-edit"></i>Editar</button>
+              <button class="btn btn-sm btn-danger" (click)="openDelete(contentDelete, friend)">
+                <i class="fa fa-remove"></i>Eliminar</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Nuevo Amigo</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+        <div class="form-group">
+          <label for="firstname">Nombre</label>
+          <div class="input-group">
+            <input id="firstname" name="firstname" class="form-control" ngModel>
+          </div>
+          <div class="form-group">
+            <label for="lastname">Apellido</label>
+            <div class="input-group">
+              <input id="lastname" name="lastname" class="form-control" ngModel>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="departament">Departamento</label>
+            <div class="input-group">
+              <input id="departament" name="departament" class="form-control" ngModel>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-group">
+              <input id="email" name="email" class="form-control" ngModel>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="country">Pais</label>
+            <div class="input-group">
+              <input id="country" name="country" class="form-control" ngModel>
+            </div>
+          </div>
+          <div class="border text-center">
+            <button data-dismiss="modal" class="btn btn-info">Agregar</button>
+            </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #contentDetails let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title1">Detalle Amigo</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+          <label for="firstname">Nombre</label>
+          <div class="input-group">
+            <input id="fname" class="form-control" readonly>
+          </div>
+          <div class="form-group">
+            <label for="lastname">Apellido</label>
+            <div class="input-group">
+              <input id="lname" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="departament">Departamento</label>
+            <div class="input-group">
+              <input id="dept" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <div class="input-group">
+              <input id="email2" class="form-control" readonly>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="country">Pais</label>
+            <div class="input-group">
+              <input id="cntry"class="form-control" readonly>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #contentEdit let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title2">Editar Datos Amigo</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="editForm" novalidate>
+        <div class="form-group"> 
+         <label>Id</label> 
+         <div class="input-group"> 
+            <input formControlName="id" class="form-control"> 
+         </div> 
+       </div>
+        <div class="form-group">
+          <label for="firstname">Nombre</label>
+          <div class="input-group">
+            <input formControlName="firstname" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="lastname">Apellido</label>
+          <div class="input-group">
+            <input formControlName="lastname" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="departament">Departamento</label>
+          <div class="input-group">
+            <input formControlName="departament" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-group">
+            <input formControlName="email" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="country">País</label>
+          <div class="input-group">
+            <input formControlName="country" class="form-control">
+          </div>
+        </div>
+        <div class="border text-center"> <button data-dismiss="modal" class="btn btn-info" (click)="onSave()">Guardar Cambios</button> </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cerrar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #contentDelete let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Confirmar Eliminación</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h2>¿Seguro que quieres borrar este dato?</h2>
+      <div class="border text-center"> 
+        <button data-dismiss="modal" class="btn btn-danger" (click)="onDelete()">Sí, borrar</button> 
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Cancelar</button>
+    </div>
+  </ng-template>
